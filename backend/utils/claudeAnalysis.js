@@ -25,6 +25,7 @@ const getClient = () => {
  * Build the detailed system prompt that instructs Claude to act as an
  * expert academic integrity officer.
  */
+import { jsonrepair } from 'jsonrepair';
 const SYSTEM_PROMPT = `You are an expert academic integrity analysis system integrated into a plagiarism detection platform. Your role is to analyse a submitted student document against matched sources and produce a structured, evidence-based plagiarism report.
 
 You will receive:
@@ -59,8 +60,13 @@ Risk level guidelines:
 - High: 41-70% → significant plagiarism likely
 - Critical: 71-100% → severe academic integrity violation
 
-Be objective, evidence-based, and precise. Do not speculate without evidence. Identify specific passages when possible.`;
+Be objective, evidence-based, and precise. Do not speculate without evidence. Identify specific passages when possible.
 
+CRITICAL JSON FORMATTING RULES:
+- Output ONLY the raw JSON object. Do not wrap it in markdown code fences (no \`\`\`json).
+- All string values must be valid JSON strings: escape any double quotes inside text with \\", and escape newlines as \\n. Do not leave literal line breaks inside a string value.
+- When quoting a word, phrase, or section title inside any string value (e.g. in "summary" or "reason"), use single quotes instead of double quotes to avoid breaking the JSON.
+- The "text" field in highlightedSections must not itself contain unescaped double quotes.`;
 /**
  * Generate an AI plagiarism analysis report.
  *
@@ -73,10 +79,10 @@ Be objective, evidence-based, and precise. Do not speculate without evidence. Id
 export async function generatePlagiarismReport({ submittedText, topMatches, combinedScore }) {
   const client = getClient();
 
-  // Truncate submitted text if very long (Claude has context limits, but let's be safe)
-  const truncatedText = submittedText.length > 4000
-    ? submittedText.slice(0, 4000) + '\n[... text truncated for analysis ...]'
-    : submittedText;
+  // Truncate submitted text if very long (Claude has generous context headroom; cost is negligible)
+const truncatedText = submittedText.length > 100000
+  ? submittedText.slice(0, 100000) + '\n[... text truncated for analysis ...]'
+  : submittedText;
 
   // Format matched sources for the prompt
   const matchesSummary = topMatches.map((match, i) => `
@@ -104,24 +110,54 @@ Please analyse this submission and return your structured JSON report.
 
   try {
     const response = await client.messages.create({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 2000,
+      model: "claude-sonnet-5",
+      max_tokens: 4096,
       system: SYSTEM_PROMPT,
       messages: [{ role: 'user', content: userPrompt }],
     });
 
-    const rawText = response.content[0]?.text || '';
+  const rawText =
+    response.content.find(item => item.type === "text")?.text || "";
+
+    // debugging logs for raw response
+    console.log("Response length:", rawText.length);
+
+  console.log(rawText.substring(0,300));
+
+console.log("...");
+
+console.log(rawText.substring(rawText.length-300));
+
+
 
     // Parse JSON, stripping any accidental markdown fences
-    const cleaned = rawText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+   let parsed;
 
-    let parsed;
     try {
-      parsed = JSON.parse(cleaned);
-    } catch {
-      // If JSON parsing fails, return a safe fallback with the raw text
-      console.warn('[claudeAnalysis] Failed to parse JSON response, using fallback');
-      return buildFallback(combinedScore, rawText);
+
+    const start = rawText.indexOf("{");
+    const end = rawText.lastIndexOf("}");
+
+    if (start === -1 || end === -1) {
+        throw new Error("No JSON found.");
+    }
+
+    const jsonText = rawText.slice(start, end + 1);
+
+    try {
+  parsed = JSON.parse(jsonText); // try normal parse first
+} catch (parseErr) {
+  console.warn("Initial JSON.parse failed, attempting repair...");
+  const repaired = jsonrepair(jsonText);
+  parsed = JSON.parse(repaired); // retry with repaired text
+}
+
+    } catch (err) {
+
+    console.error("JSON Parse Error:", err);
+
+    return buildFallback(combinedScore, rawText);
+
     }
 
     // Validate and clamp plagiarismPercentage

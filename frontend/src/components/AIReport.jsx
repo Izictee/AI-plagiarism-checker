@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { ChevronDown, Cpu, AlertTriangle, CheckCircle, XCircle, Info } from 'lucide-react';
 
 const SEVERITY_COLORS = {
-  high:   { bg: 'rgba(255,71,87,0.15)', border: 'rgba(255,71,87,0.4)', text: 'var(--red)' },
-  medium: { bg: 'rgba(255,160,65,0.15)', border: 'rgba(255,160,65,0.4)', text: 'var(--orange)' },
-  low:    { bg: 'rgba(255,211,42,0.1)', border: 'rgba(255,211,42,0.3)', text: 'var(--yellow)' },
+  high:   { bg: 'rgba(239,68,68,0.1)', border: 'rgba(239,68,68,0.4)', text: 'var(--red)' },
+  medium: { bg: 'rgba(249,115,22,0.1)', border: 'rgba(249,115,22,0.4)', text: 'var(--orange)' },
+  low:    { bg: 'rgba(245,158,11,0.1)', border: 'rgba(245,158,11,0.3)', text: 'var(--yellow)' },
 };
 
 const TYPE_LABELS = {
@@ -164,7 +164,7 @@ const reportStyles = {
     fontSize: '0.65rem', fontFamily: 'var(--font-mono)',
     padding: '2px 8px', borderRadius: '4px',
     background: 'var(--accent-dim)', color: 'var(--accent)',
-    border: '1px solid rgba(163,255,71,0.2)',
+    border: '1px solid rgba(59,110,143,0.2)',
   },
   summary: {
     display: 'flex', gap: '10px',
@@ -223,7 +223,7 @@ const reportStyles = {
   severityTag: {
     fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
     padding: '1px 6px', borderRadius: '3px',
-    background: 'rgba(255,255,255,0.05)',
+    background: 'rgba(15,23,42,0.06)',
   },
   highlightText: {
     fontFamily: 'var(--font-mono)', fontSize: '0.8rem',

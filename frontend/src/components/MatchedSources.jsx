@@ -8,7 +8,7 @@ function ScoreBar({ value, color }) {
     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
       <div style={{
         flex: 1, height: '4px',
-        background: 'var(--bg-base)', borderRadius: '2px', overflow: 'hidden',
+        background: 'var(--bg-hover)', borderRadius: '2px', overflow: 'hidden',
       }}>
         <div style={{
           width: pct(value), height: '100%',
@@ -43,9 +43,9 @@ export default function MatchedSources({ matches }) {
       {matches.map((match, i) => {
         const combined = match.combinedScore || 0;
         let borderColor = 'var(--border)';
-        if (combined > 0.7) borderColor = 'rgba(255,71,87,0.4)';
-        else if (combined > 0.4) borderColor = 'rgba(255,160,65,0.4)';
-        else if (combined > 0.2) borderColor = 'rgba(255,211,42,0.3)';
+        if (combined > 0.7) borderColor = 'rgba(239,68,68,0.4)';
+        else if (combined > 0.4) borderColor = 'rgba(249,115,22,0.4)';
+        else if (combined > 0.2) borderColor = 'rgba(245,158,11,0.3)';
 
         return (
           <div key={match.submissionId || i} style={{ ...sourceStyles.card, borderColor }}>
@@ -77,14 +77,14 @@ export default function MatchedSources({ matches }) {
                   <GitBranch size={11} />
                   TF-IDF
                 </div>
-                <ScoreBar value={match.tfidfScore} color="rgba(99,179,237,0.8)" />
+                <ScoreBar value={match.tfidfScore} color="rgba(99,102,241,0.8)" />
               </div>
               <div style={sourceStyles.scoreRow}>
                 <div style={sourceStyles.scoreLabel}>
                   <Brain size={11} />
                   Semantic
                 </div>
-                <ScoreBar value={match.embeddingScore} color="rgba(163,255,71,0.7)" />
+                <ScoreBar value={match.embeddingScore} color="rgba(59,110,143,0.75)" />
               </div>
               <div style={sourceStyles.scoreRow}>
                 <div style={sourceStyles.scoreLabel}>
@@ -133,7 +133,7 @@ const sourceStyles = {
   cardHeader: { display: 'flex', alignItems: 'flex-start', gap: '12px' },
   rank: {
     width: '24px', height: '24px',
-    background: 'var(--bg-base)',
+    background: 'var(--bg-hover)',
     border: '1px solid var(--border-strong)',
     borderRadius: '6px',
     display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -149,7 +149,7 @@ const sourceStyles = {
     color: 'var(--text-muted)', marginTop: '2px',
   },
   combinedBadge: {
-    fontFamily: 'var(--font-display)', fontWeight: 800,
+    fontFamily: 'var(--font-display)', fontWeight: 700,
     fontSize: '1.1rem', flexShrink: 0,
   },
   scores: { display: 'flex', flexDirection: 'column', gap: '8px' },
@@ -166,7 +166,7 @@ const sourceStyles = {
     fontSize: '0.8rem', fontFamily: 'var(--font-mono)',
     color: 'var(--text-muted)', lineHeight: 1.6,
     padding: '10px',
-    background: 'var(--bg-base)',
+    background: 'var(--bg-hover)',
     borderRadius: '6px',
     borderLeft: '3px solid var(--border-strong)',
     fontStyle: 'italic',

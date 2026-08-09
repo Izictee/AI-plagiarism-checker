@@ -129,6 +129,7 @@ export default function UploadForm({ onSubmit, isLoading }) {
         <div style={formStyles.field}>
           <label style={formStyles.label}>Upload Document</label>
           <div
+            className="upload-drop-zone"
             style={{
               ...formStyles.dropZone,
               ...(dragOver ? formStyles.dropZoneActive : {}),
@@ -224,7 +225,7 @@ function LoadingDots() {
             width: '5px',
             height: '5px',
             borderRadius: '50%',
-            background: 'var(--bg-base)',
+            background: '#FFFFFF',
             animation: 'pulse 1.2s ease-in-out infinite',
             animationDelay: `${i * 0.2}s`,
           }}
@@ -253,7 +254,7 @@ const formStyles = {
   },
   input: {
     background: 'var(--bg-elevated)',
-    border: '1px solid var(--border-strong)',
+    border: '1px solid var(--border)',
     borderRadius: 'var(--radius-md)',
     padding: '12px 16px',
     color: 'var(--text-primary)',
@@ -264,7 +265,7 @@ const formStyles = {
   },
   textarea: {
     background: 'var(--bg-elevated)',
-    border: '1px solid var(--border-strong)',
+    border: '1px solid var(--border)',
     borderRadius: 'var(--radius-md)',
     padding: '16px',
     color: 'var(--text-primary)',
@@ -304,7 +305,7 @@ const formStyles = {
   modeBtnActive: {
     background: 'var(--bg-surface)',
     color: 'var(--accent)',
-    border: '1px solid rgba(163,255,71,0.25)',
+    border: '1px solid rgba(59,110,143,0.25)',
   },
   dropZone: {
     border: '2px dashed var(--border-strong)',
@@ -323,8 +324,8 @@ const formStyles = {
   dropZoneHasFile: {
     cursor: 'default',
     borderStyle: 'solid',
-    borderColor: 'rgba(163,255,71,0.3)',
-    background: 'rgba(163,255,71,0.04)',
+    borderColor: 'rgba(59,110,143,0.3)',
+    background: 'rgba(59,110,143,0.04)',
   },
   dropPrompt: { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' },
   uploadIcon: {
@@ -357,8 +358,8 @@ const formStyles = {
   error: {
     display: 'flex', alignItems: 'center', gap: '8px',
     padding: '12px 16px',
-    background: 'rgba(255,71,87,0.1)',
-    border: '1px solid rgba(255,71,87,0.3)',
+    background: 'rgba(239,68,68,0.1)',
+    border: '1px solid rgba(239,68,68,0.3)',
     borderRadius: 'var(--radius-md)',
     color: 'var(--red)', fontSize: '0.85rem',
   },
@@ -366,16 +367,15 @@ const formStyles = {
     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
     padding: '14px 28px',
     background: 'var(--accent)',
-    color: '#0a0b0d',
+    color: '#FFFFFF',
     border: 'none', borderRadius: 'var(--radius-md)',
     fontSize: '0.95rem', fontWeight: 600,
     fontFamily: 'var(--font-body)',
     cursor: 'pointer',
     transition: 'all 0.2s',
-    boxShadow: '0 0 0 0 var(--accent-glow)',
   },
   submitBtnLoading: {
     opacity: 0.7, cursor: 'not-allowed',
-    background: 'rgba(163,255,71,0.5)',
+    background: 'rgba(59,110,143,0.5)',
   },
 };

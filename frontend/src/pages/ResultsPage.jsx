@@ -68,9 +68,9 @@ export default function ResultsPage() {
   }
 
   return (
-    <div style={pageStyles.root}>
+    <div style={pageStyles.root} className="page-root page-root-top">
       {/* Top nav */}
-      <div style={pageStyles.topBar}>
+      <div style={pageStyles.topBar} className="results-top-bar">
         <Link to="/" style={pageStyles.backLink}>
           <ArrowLeft size={14} />
           New Check
@@ -137,7 +137,7 @@ const pageStyles = {
     display: 'flex', alignItems: 'center', gap: '6px',
     padding: '8px 16px',
     background: 'var(--accent-dim)',
-    border: '1px solid rgba(163,255,71,0.25)',
+    border: '1px solid rgba(59,110,143,0.25)',
     borderRadius: 'var(--radius-md)',
     color: 'var(--accent)', fontSize: '0.875rem',
     textDecoration: 'none',

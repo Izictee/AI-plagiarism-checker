@@ -64,7 +64,7 @@ export default function HomePage() {
   };
 
   return (
-    <div style={homeStyles.root}>
+    <div style={homeStyles.root} className="page-root page-root-top">
       {/* ── Hero ───────────────────────────────────── */}
       <div style={homeStyles.hero}>
         <div style={homeStyles.heroLabel}>
@@ -83,7 +83,7 @@ export default function HomePage() {
         </p>
 
         {/* Features row */}
-        <div style={homeStyles.features}>
+        <div style={homeStyles.features} className="home-features-grid">
           {FEATURES.map(({ icon: Icon, title, desc }) => (
             <div key={title} style={homeStyles.feature}>
               <div style={homeStyles.featureIcon}>
@@ -99,7 +99,7 @@ export default function HomePage() {
       </div>
 
       {/* ── Main card ──────────────────────────────── */}
-      <div style={homeStyles.card}>
+      <div style={homeStyles.card} className="home-card">
         <div style={homeStyles.cardHeader}>
           <h2 style={homeStyles.cardTitle}>Submit Document</h2>
           <p style={homeStyles.cardSub}>
@@ -161,10 +161,9 @@ const homeStyles = {
   heroLabelDot: {
     width: '6px', height: '6px', borderRadius: '50%',
     background: 'var(--accent)',
-    boxShadow: '0 0 8px var(--accent-glow)',
   },
   heroTitle: {
-    fontFamily: 'var(--font-display)', fontWeight: 800,
+    fontFamily: 'var(--font-display)', fontWeight: 700,
     fontSize: 'clamp(2rem, 5vw, 3.2rem)',
     lineHeight: 1.1, letterSpacing: '-0.03em',
     color: 'var(--text-primary)',
@@ -188,7 +187,7 @@ const homeStyles = {
   featureIcon: {
     width: '28px', height: '28px',
     background: 'var(--accent-dim)',
-    border: '1px solid rgba(163,255,71,0.2)',
+    border: '1px solid rgba(59,110,143,0.2)',
     borderRadius: '7px',
     display: 'flex', alignItems: 'center', justifyContent: 'center',
     color: 'var(--accent)', flexShrink: 0,
@@ -218,12 +217,12 @@ const homeStyles = {
     display: 'flex', alignItems: 'flex-start', gap: '16px',
     padding: '16px',
     background: 'var(--accent-dim)',
-    border: '1px solid rgba(163,255,71,0.25)',
+    border: '1px solid rgba(59,110,143,0.25)',
     borderRadius: 'var(--radius-md)',
   },
   loadingSpinner: {
     width: '20px', height: '20px', borderRadius: '50%', flexShrink: 0, marginTop: '2px',
-    border: '2px solid rgba(163,255,71,0.3)',
+    border: '2px solid rgba(59,110,143,0.3)',
     borderTopColor: 'var(--accent)',
     animation: 'spin 0.8s linear infinite',
   },
@@ -234,8 +233,8 @@ const homeStyles = {
   loadingSub: { fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '4px' },
   errorBanner: {
     padding: '14px 16px',
-    background: 'rgba(255,71,87,0.1)',
-    border: '1px solid rgba(255,71,87,0.3)',
+    background: 'rgba(239,68,68,0.1)',
+    border: '1px solid rgba(239,68,68,0.3)',
     borderRadius: 'var(--radius-md)',
     color: 'var(--red)', fontSize: '0.875rem',
   },

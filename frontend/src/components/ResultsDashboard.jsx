@@ -6,7 +6,7 @@ import { FileText, Clock, Hash, Database } from 'lucide-react';
 
 function MetaCard({ icon: Icon, label, value }) {
   return (
-    <div style={dashStyles.metaCard}>
+    <div style={dashStyles.metaCard} className="results-meta-card">
       <Icon size={14} style={{ color: 'var(--accent)' }} />
       <div>
         <p style={dashStyles.metaLabel}>{label}</p>
@@ -19,11 +19,11 @@ function MetaCard({ icon: Icon, label, value }) {
 function Panel({ title, children, badge }) {
   return (
     <div style={dashStyles.panel}>
-      <div style={dashStyles.panelHeader}>
+      <div style={dashStyles.panelHeader} className="panel-header">
         <h3 style={dashStyles.panelTitle}>{title}</h3>
         {badge && <span style={dashStyles.panelBadge}>{badge}</span>}
       </div>
-      <div style={dashStyles.panelBody}>{children}</div>
+      <div style={dashStyles.panelBody} className="panel-body">{children}</div>
     </div>
   );
 }
@@ -41,13 +41,13 @@ export default function ResultsDashboard({ result }) {
   return (
     <div style={dashStyles.root} className="animate-fade-up">
       {/* ── Header ──────────────────────────────────── */}
-      <div style={dashStyles.header}>
+      <div style={dashStyles.header} className="results-dashboard-header">
         <div style={dashStyles.titleRow}>
           <div style={dashStyles.titleIcon}>
             <FileText size={18} />
           </div>
           <div>
-            <h2 style={dashStyles.title}>{title || 'Analysis Complete'}</h2>
+            <h2 style={dashStyles.title} className="results-title">{title || 'Analysis Complete'}</h2>
             <p style={dashStyles.subId}>
               ID: {String(submissionId).slice(-12).toUpperCase()}
             </p>
@@ -55,7 +55,7 @@ export default function ResultsDashboard({ result }) {
         </div>
 
         {/* Metadata pills */}
-        <div style={dashStyles.metaRow}>
+        <div style={dashStyles.metaRow} className="results-meta-row">
           <MetaCard icon={Clock} label="Analysed" value={dateStr} />
           <MetaCard icon={Hash} label="Word Count" value={wordCount?.toLocaleString() || '—'} />
           <MetaCard icon={FileText} label="Source" value={source?.toUpperCase() || 'TEXT'} />
@@ -64,7 +64,7 @@ export default function ResultsDashboard({ result }) {
       </div>
 
       {/* ── Main grid ───────────────────────────────── */}
-      <div style={dashStyles.grid}>
+      <div style={dashStyles.grid} className="results-grid">
         {/* Left column */}
         <div style={dashStyles.leftCol}>
           {/* Plagiarism meter */}
@@ -113,7 +113,7 @@ const dashStyles = {
   titleIcon: {
     width: '44px', height: '44px',
     background: 'var(--accent-dim)',
-    border: '1px solid rgba(163,255,71,0.25)',
+    border: '1px solid rgba(59,110,143,0.25)',
     borderRadius: 'var(--radius-md)',
     display: 'flex', alignItems: 'center', justifyContent: 'center',
     color: 'var(--accent)',
@@ -170,7 +170,7 @@ const dashStyles = {
     fontFamily: 'var(--font-mono)', fontSize: '0.66rem',
     padding: '3px 8px', borderRadius: '4px',
     background: 'var(--accent-dim)', color: 'var(--accent)',
-    border: '1px solid rgba(163,255,71,0.2)',
+    border: '1px solid rgba(59,110,143,0.2)',
   },
   panelBody: { padding: '20px' },
 };

@@ -4,10 +4,10 @@ import { Trash2, ExternalLink, RefreshCw, FileText, BarChart3 } from 'lucide-rea
 import { getSubmissions, getStats, deleteSubmission } from '../utils/api.js';
 
 const RISK_COLORS = {
-  Low: 'var(--risk-low)',
-  Moderate: 'var(--risk-moderate)',
-  High: 'var(--risk-high)',
-  Critical: 'var(--risk-critical)',
+  Low: '#22C55E',
+  Moderate: '#F59E0B',
+  High: '#F97316',
+  Critical: '#EF4444',
 };
 
 function StatCard({ label, value, color }) {
@@ -63,14 +63,14 @@ export default function HistoryPage() {
   };
 
   return (
-    <div style={histStyles.root}>
+    <div style={histStyles.root} className="page-root page-root-top">
       {/* ── Header ──────────────────────────────────── */}
-      <div style={histStyles.pageHeader}>
+      <div style={histStyles.pageHeader} className="history-page-header">
         <div>
-          <h1 style={histStyles.pageTitle}>Submission History</h1>
+          <h1 style={histStyles.pageTitle} className="history-page-title">Submission History</h1>
           <p style={histStyles.pageSub}>All documents checked against the plagiarism database</p>
         </div>
-        <button onClick={() => load(page)} style={histStyles.refreshBtn} disabled={loading}>
+        <button onClick={() => load(page)} style={histStyles.refreshBtn} className="refresh-btn" disabled={loading}>
           <RefreshCw size={14} style={{ animation: loading ? 'spin 0.8s linear infinite' : 'none' }} />
           Refresh
         </button>
@@ -78,7 +78,7 @@ export default function HistoryPage() {
 
       {/* ── Stats ───────────────────────────────────── */}
       {stats && (
-        <div style={histStyles.statsGrid}>
+        <div style={histStyles.statsGrid} className="history-stats-grid">
           <StatCard label="Total Submissions" value={stats.totalSubmissions} />
           <StatCard label="Low Risk" value={stats.riskDistribution.Low} color="var(--risk-low)" />
           <StatCard label="Moderate Risk" value={stats.riskDistribution.Moderate} color="var(--risk-moderate)" />
@@ -107,6 +107,7 @@ export default function HistoryPage() {
       ) : (
         <>
           <div style={histStyles.tableWrapper}>
+            <div style={histStyles.tableScroll}>
             <table style={histStyles.table}>
               <thead>
                 <tr>
@@ -165,6 +166,7 @@ export default function HistoryPage() {
                 })}
               </tbody>
             </table>
+            </div>
           </div>
 
           {/* Pagination */}
@@ -207,7 +209,7 @@ const histStyles = {
     display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
   },
   pageTitle: {
-    fontFamily: 'var(--font-display)', fontWeight: 800,
+    fontFamily: 'var(--font-display)', fontWeight: 700,
     fontSize: '1.8rem', color: 'var(--text-primary)',
   },
   pageSub: { color: 'var(--text-secondary)', fontSize: '0.875rem', marginTop: '4px' },
@@ -230,7 +232,7 @@ const histStyles = {
     padding: '16px', textAlign: 'center',
   },
   statValue: {
-    fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '1.8rem',
+    fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.8rem',
   },
   statLabel: {
     fontFamily: 'var(--font-mono)', fontSize: '0.68rem',
@@ -238,8 +240,8 @@ const histStyles = {
   },
   errorBanner: {
     padding: '14px 16px',
-    background: 'rgba(255,71,87,0.1)',
-    border: '1px solid rgba(255,71,87,0.3)',
+    background: 'rgba(239,68,68,0.1)',
+    border: '1px solid rgba(239,68,68,0.3)',
     borderRadius: 'var(--radius-md)',
     color: 'var(--red)', fontSize: '0.875rem',
   },
@@ -249,8 +251,11 @@ const histStyles = {
     borderRadius: 'var(--radius-xl)',
     overflow: 'hidden',
   },
+  tableScroll: {
+    width: '100%', overflowX: 'auto', WebkitOverflowScrolling: 'touch',
+  },
   table: {
-    width: '100%', borderCollapse: 'collapse',
+    width: '100%', minWidth: '760px', borderCollapse: 'collapse',
   },
   th: {
     padding: '12px 16px',
@@ -286,21 +291,21 @@ const histStyles = {
     fontWeight: 500,
   },
   pctValue: {
-    fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '1rem',
+    fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1rem',
   },
   viewBtn: {
     display: 'flex', alignItems: 'center', justifyContent: 'center',
     padding: '6px',
     background: 'var(--accent-dim)',
-    border: '1px solid rgba(163,255,71,0.2)',
+    border: '1px solid rgba(59,110,143,0.2)',
     borderRadius: '6px',
     color: 'var(--accent)', cursor: 'pointer',
   },
   deleteBtn: {
     display: 'flex', alignItems: 'center', justifyContent: 'center',
     padding: '6px',
-    background: 'rgba(255,71,87,0.1)',
-    border: '1px solid rgba(255,71,87,0.2)',
+    background: 'rgba(239,68,68,0.1)',
+    border: '1px solid rgba(239,68,68,0.2)',
     borderRadius: '6px',
     color: 'var(--red)', cursor: 'pointer',
   },
@@ -328,6 +333,7 @@ const histStyles = {
   },
   pagination: {
     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px',
+    flexWrap: 'wrap',
   },
   pageBtn: {
     padding: '8px 16px',

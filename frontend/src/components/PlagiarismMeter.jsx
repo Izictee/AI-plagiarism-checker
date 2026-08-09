@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 const RISK_COLORS = {
-  Low:      'var(--risk-low)',
-  Moderate: 'var(--risk-moderate)',
-  High:     'var(--risk-high)',
-  Critical: 'var(--risk-critical)',
+  Low:      '#22C55E',
+  Moderate: '#F59E0B',
+  High:     '#F97316',
+  Critical: '#EF4444',
 };
 
 const RISK_LABELS = {
@@ -60,7 +60,6 @@ export default function PlagiarismMeter({ percentage, riskLevel }) {
             transform="rotate(-90 100 100)"
             style={{
               transition: 'stroke-dashoffset 1.5s cubic-bezier(0.16,1,0.3,1)',
-              filter: `drop-shadow(0 0 8px ${color}80)`,
             }}
           />
           {/* Glow overlay for the high-percentage section */}
@@ -105,8 +104,7 @@ export default function PlagiarismMeter({ percentage, riskLevel }) {
           style={{
             ...meterStyles.progressFill,
             width: `${percentage}%`,
-            background: `linear-gradient(90deg, ${color}80, ${color})`,
-            boxShadow: `0 0 12px ${color}60`,
+            background: color,
           }}
         />
         <div style={meterStyles.progressMarkers}>
@@ -136,7 +134,7 @@ const meterStyles = {
     alignItems: 'center', justifyContent: 'center',
   },
   percentage: {
-    fontFamily: 'var(--font-display)', fontWeight: 800,
+    fontFamily: 'var(--font-display)', fontWeight: 700,
     fontSize: '3rem', lineHeight: 1,
   },
   pct: { fontSize: '1.5rem', fontWeight: 600 },

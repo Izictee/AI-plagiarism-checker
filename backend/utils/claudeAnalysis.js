@@ -119,17 +119,6 @@ Please analyse this submission and return your structured JSON report.
   const rawText =
     response.content.find(item => item.type === "text")?.text || "";
 
-    // debugging logs for raw response
-    console.log("Response length:", rawText.length);
-
-  console.log(rawText.substring(0,300));
-
-console.log("...");
-
-console.log(rawText.substring(rawText.length-300));
-
-
-
     // Parse JSON, stripping any accidental markdown fences
    let parsed;
 
